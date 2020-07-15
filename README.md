@@ -82,7 +82,7 @@ If you forget it, you can run `xcrun altool --list-providers -u $APPLE_ID -p "@k
 You can change this, but you don't really need to. This is just a key used to save your password in your keychain.  
 
 ### ZIP_NAME="send_for_notarization.zip"
-No need to change it, but you CAN change it to make it more comprehensible. It appears in the result in the notarizatino report.
+No need to change it, but you CAN change it to make it more comprehensible. It appears in the result in the notarization report.
 
 # Reference
 
