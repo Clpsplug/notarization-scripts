@@ -11,13 +11,13 @@ echo "You must run sign_and_notarize.sh before running this! :)"
 
 echo -e "If you have 'stapled_product' directory here, ${YELLOW}We will delete its contents!${RESET}"
 
-read -n1 -p "ok? (y/N): " yn; case "$yn" in [yY]*) echo "\nProceeding...";; *) exit 1;; esac
+read -r -n1 -p "ok? (y/N): " yn; case "$yn" in [yY]*) printf "\nProceeding...";; *) exit 1;; esac
 
 rm -rf stapled_product
 
 mkdir stapled_product
 
-xcrun stapler staple "$BINARY_SIGNED" || { echo -e "${RED}Stapling failed!${RESET} Check your notarization status. Is it failing?"; exit 1 }
+xcrun stapler staple "$BINARY_SIGNED" || { echo -e "${RED}Stapling failed!${RESET} Check your notarization status. Is it failing?"; exit 1; }
 
 spctl -a -v "$BINARY_SIGNED" || { echo -e "${RED}Stapling worked but GateKeeper is rejecting?${RESET}"; exit 1; }
 
