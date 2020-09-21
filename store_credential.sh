@@ -16,7 +16,7 @@ echo ""
 
 echo -e "Provide your Apple ID (usually, your email address:)"
 echo -e -n "${GREEN}Apple ID: ${RESET}"
-read appleid
+read -r appleid
 
 echo ""
 
@@ -24,22 +24,21 @@ echo -e "Now go to Apple ID website https://appleid.apple.com/ and create an App
 echo -e "if you haven't done it already!"
 echo -e "${YELLOW}Press Return to continue.${RESET}"
 
-read disposed
+# shellcheck disable=SC2034
+read -r disposed
 
 echo -e "Provide your App specific password - don't worry, we will NEVER store it anywhere except in your computer!"
 echo -e -n "${GREEN}App specific password (hidden): ${RESET}" 
 # this stores password in $password
-read -s password
+read -sr password
 
 echo ""
 
-xcrun altool --store-password-in-keychain-item "$KEYCHAIN_ITEM_ID" -u "$appleid" -p $password
+xcrun altool --store-password-in-keychain-item "$KEYCHAIN_ITEM_ID" -u "$appleid" -p "$password"
 
 echo -e "\n${GREEN}Stored! Now we will test the credential by listing the providers for this account.${RESET}"
 
-xcrun altool --list-providers -u "$appleid" -p "@keychain:${KEYCHAIN_ITEM_ID}"
-
-if [ $? -eq 0 ]; then
+if xcrun altool --list-providers -u "$appleid" -p "@keychain:${KEYCHAIN_ITEM_ID}"; then
 	echo -e "${GREEN}Success!${RESET} ${YELLOW}TAKE NOTE OF \"ProviderShortname\" because you'll need it for notarization!!!${RESET}"
 	exit 0;
 else
