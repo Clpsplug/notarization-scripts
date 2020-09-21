@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export IGNORE_SHORT=1
 source "config.sh"
 
 GREEN='\033[01;32m'
