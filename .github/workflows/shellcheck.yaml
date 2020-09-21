@@ -1,15 +1,16 @@
-name: Shell script linting
-
 on:
-  pull_request:
-    types: [opened, synchronize]
-    paths: '**.sh'
+  push:
+    branch:
+      - master
+
+name: 'Shell script linting'
 
 jobs:
   shellcheck:
+    name: Shellcheck
     runs-on: ubuntu-latest
     steps:
-    - uses: ludeeus/action-shellcheck@0.5.0
-      with:
-        fetch-depth: 0
+    - uses: actions/checkout@v2
+    - name: Run ShellCheck
+      uses: ludeeus/action-shellcheck@master
 
